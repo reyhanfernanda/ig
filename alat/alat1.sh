@@ -16,17 +16,17 @@ limit=100
 
 #banner
 clear
-echo   "        	SELAMAT DATANG DI	         "
-echo   "      PROGRAM PENCARI CABE-CABEAN INSTAGRAM      "
-echo   "     		   |||||||||	      		 "  
-echo   "      		  █████████       		 "   
-echo   "     		  █▄█████▄█          		 "
-echo   "     		  █ ▼▼▼▼▼  _-_--.                "
-echo   "    		  █.    _-_-- -_ hotttttttt !!!  "
-echo   "     		  █ ▲▲▲▲▲   -_ -                 "  
-echo   "      		  █████████                      "
-echo   "       		   ██ ██                         "
-echo   "   DIGUNAKAN UNTUK MENCARI MANTAN YANG HILANG!!! "  
+echo   "          SELAMAT DATANG DI	               "
+echo   " PROGRAM PENCARI CABE-CABEAN INSTAGRAM         "
+echo   "         |||||||||	      		       "  
+echo   "         █████████       		       "   
+echo   "     	 █▄█████▄█          		       "
+echo   "         █ ▼▼▼▼▼  _-_--.                       "
+echo   "         █.    _-_-- -_ hotttttttt !!!         "
+echo   "         █ ▲▲▲▲▲   -_ -                        "  
+echo   "      	 █████████                             "
+echo   "       	   ██ ██                	       "
+echo   " DIGUNAKAN UNTUK MENCARI MANTAN YANG HILANG!!! "  
 echo   ""
 
 
@@ -52,14 +52,14 @@ touch target
 
 case $opt in
     1) #menu 1
-        read -p $'\e[37m[\e[34m?\e[37m] Cari berdasarkan nama mantan :v   : \e[1;33m' ask
+        read -p $'\e[37m[\e[34m?\e[37m] Cari berdasarkan nama mantan : \e[1;33m' ask
         collect=$(curl -s "https://www.instagram.com/web/search/topsearch/?context=blended&query=${ask}" | jq -r '.users[].user.username' > target)
-        echo $'\e[37m[\e[34m+\e[37m] Just found        : \e[1;33m'$collect''$(< target wc -l ; echo -e "${white}user")
-        read -p $'[\e[1;34m?\e[1;37m] Password to use   : \e[1;33m' pass
-        echo -e "${white}[${yellow}!${white}] ${red}Start cracking...${white}"
+        echo $'\e[37m[\e[34m+\e[37m] jumlah yang didapat : \e[1;33m'$collect''$(< target wc -l ; echo -e "${white}user")
+        read -p $'[\e[1;34m?\e[1;37m] Password sesuai insting anda : \e[1;33m' pass
+        echo -e "${white}[${yellow}!${white}] ${red}Mulai mencari Mantan...${white}"
         ;;
     2) #menu 2
-        read -p $'\e[37m[\e[34m?\e[37m] Hashtag yang sering digunakan   : \e[1;33m' hashtag
+        read -p $'\e[37m[\e[34m?\e[37m] Hashtag yang sering digunakan : \e[1;33m' hashtag
         get=$(curl -sX GET "https://www.instagram.com/explore/tags/${hashtag}/?__a=1")
         if [[ $get =~ "Page Not Found" ]]; then
         echo -e "$hashtag : ${red}Hashtag not found${white}"
@@ -67,9 +67,9 @@ case $opt in
         else
             echo "$get" | jq -r '.[].hashtag.edge_hashtag_to_media.edges[].node.shortcode' | awk '{print "https://www.instagram.com/p/"$0"/"}' > result
             echo -e "${white}[${blue}!${white}] Removing duplicate user from tag ${red}#$hashtag${white}"$(sort -u result > hashtag)
-            echo -e "[${blue}+${white}] Just found        : ${yellow}"$(< hashtag wc -l ; echo -e "${white}user")
-            read -p $'[\e[34m?\e[37m] Password to use   : \e[1;33m' pass
-            echo -e "${white}[${yellow}!${white}] ${red}Start cracking...${white}"
+            echo -e "[${blue}+${white}] jumlah yang didapat : ${yellow}"$(< hashtag wc -l ; echo -e "${white}user")
+            read -p $'[\e[34m?\e[37m] Password sesuai insting anda : \e[1;33m' pass
+            echo -e "${white}[${yellow}!${white}] ${red}Mulai mencari Mantan...${white}"
             for tag in $(cat hashtag); do
                 echo $tag | xargs -P 100 curl -s | grep -o "alternateName.*" | cut -d "@" -f2 | cut -d '"' -f1 >> target &
             done
